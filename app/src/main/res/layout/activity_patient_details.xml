@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    tools:context="com.nileshdeokar.healthapp.PatientDetailsActivity">
+
+    <RelativeLayout
+        android:id="@+id/basicInfo"
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+
+        <include
+            layout="@layout/row_patient" />
+
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/chicken_pox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/basicInfo"
+        android:text="Chicken Pox"
+        android:layout_margin="2dp"
+        android:padding="2dp"
+        />
+
+    <CheckBox
+        android:id="@+id/chicken_pox_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/basicInfo"
+        android:layout_alignParentRight="true"
+        android:layout_margin="2dp"
+        android:padding="2dp"
+        />
+
+
+
+
+    <TextView
+        android:id="@+id/measles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/chicken_pox"
+        android:layout_margin="2dp"
+        android:padding="2dp"
+        android:text="Measles"
+        />
+
+
+    <CheckBox
+        android:id="@+id/measles_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/chicken_pox"
+        android:layout_alignParentRight="true"
+        android:layout_margin="2dp"
+        android:padding="2dp"
+        />
+
+
+    <TextView
+        android:id="@+id/mumps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/measles"
+        android:layout_margin="2dp"
+        android:padding="2dp"
+        android:text="Mumps"
+        />
+
+
+    <CheckBox
+        android:id="@+id/mumps_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mumps"
+        android:layout_alignParentRight="true"
+        android:layout_margin="2dp"
+        android:padding="2dp"
+        />
+
+
+
+    <TextView
+        android:id="@+id/asthma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mumps"
+        android:layout_margin="2dp"
+        android:padding="2dp"
+        android:text="Asthma"
+        />
+
+
+    <CheckBox
+        android:id="@+id/asthma_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/measles"
+        android:layout_alignParentRight="true"
+        android:layout_margin="2dp"
+        android:padding="2dp"
+        />
+
+
+    <TextView
+        android:id="@+id/thyroid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/asthma"
+        android:layout_margin="2dp"
+        android:padding="2dp"
+        android:text="Thyroid"
+        />
+
+
+    <CheckBox
+        android:id="@+id/thyroid_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/asthma"
+        android:layout_alignParentRight="true"
+        android:layout_margin="2dp"
+        android:padding="2dp"
+        />
+
+    <TextView
+        android:id="@+id/diabetic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/thyroid"
+        android:layout_margin="2dp"
+        android:padding="2dp"
+        android:text="Diabetes"
+        />
+
+
+    <CheckBox
+        android:id="@+id/diabetic_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/thyroid"
+        android:layout_alignParentRight="true"
+        android:layout_margin="2dp"
+        android:padding="2dp"
+        />
+
+
+    <TextView
+        android:id="@+id/anemia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/diabetic"
+        android:layout_margin="2dp"
+        android:padding="2dp"
+        android:text="Anemia"
+        />
+
+
+    <CheckBox
+        android:id="@+id/anemia_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/diabetic"
+        android:layout_alignParentRight="true"
+        android:layout_margin="2dp"
+        android:padding="2dp"
+        />
+
+
+    <TextView
+        android:id="@+id/kidney_stone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/anemia"
+        android:layout_margin="2dp"
+        android:padding="2dp"
+        android:text="Kidney Stone"
+        />
+
+
+    <CheckBox
+        android:id="@+id/kidney_stone_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/anemia"
+        android:layout_alignParentRight="true"
+        android:layout_margin="2dp"
+        android:padding="2dp"
+        />
+
+
+
+    <TextView
+        android:id="@+id/heart_attack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/kidney_stone"
+        android:layout_margin="2dp"
+        android:padding="2dp"
+        android:text="Heart Attack"
+        />
+
+
+    <CheckBox
+        android:id="@+id/heart_attack_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/kidney_stone"
+        android:layout_alignParentRight="true"
+
+        android:layout_margin="2dp"
+        android:padding="2dp"
+        />
+
+
+    <TextView
+        android:id="@+id/malaria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/heart_attack"
+        android:layout_margin="2dp"
+        android:padding="2dp"
+        android:text="Malaria"
+        />
+
+
+    <CheckBox
+        android:id="@+id/malaria_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/heart_attack"
+        android:layout_alignParentRight="true"
+        android:layout_margin="2dp"
+        android:padding="2dp"
+        />
+
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/malaria"
+        />
+
+
+</RelativeLayout>

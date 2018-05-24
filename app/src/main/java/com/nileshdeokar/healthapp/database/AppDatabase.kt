@@ -13,7 +13,7 @@ abstract class AppDatabase : RoomDatabase() {
     companion object {
 
         private var INSTANCE: AppDatabase? = null
-
+        // TODO single thread executor
         fun getAppDatabase(context: Context): AppDatabase? {
             if (INSTANCE == null) {
                 INSTANCE = Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "patients-db")
