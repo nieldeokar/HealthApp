@@ -1,4 +1,4 @@
-package com.nileshdeokar.bitwiseshiftingapp
+package com.nileshdeokar.healthapp
 
 import org.junit.Test
 

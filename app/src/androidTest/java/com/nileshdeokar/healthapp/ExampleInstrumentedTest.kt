@@ -1,4 +1,4 @@
-package com.nileshdeokar.bitwiseshiftingapp
+package com.nileshdeokar.healthapp
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
