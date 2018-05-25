@@ -3,9 +3,13 @@ package com.nileshdeokar.healthapp.database
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
+import android.arch.persistence.room.TypeConverters
 import android.content.Context
 
 @Database(entities = arrayOf(Patient::class), version = 1)
+
+
+@TypeConverters(BlobConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun patientDao(): PatientDao

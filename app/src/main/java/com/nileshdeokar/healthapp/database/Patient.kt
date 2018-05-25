@@ -3,7 +3,7 @@ package com.nileshdeokar.healthapp.database
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.PrimaryKey
-
+import java.sql.Blob
 
 
 /**
@@ -28,8 +28,8 @@ class Patient {
     @ColumnInfo(name = "age")
     var  age: Int = 0
 
-    @ColumnInfo(name = "medical_history")
-    var  medicalHistory: Int = 0
+    @ColumnInfo(name = "medical_history",typeAffinity = ColumnInfo.BLOB)
+    var medicalHistory : ByteArray? = null
 
     @ColumnInfo(name = "chicken_pox")
     var  chickenPox : Int = 0

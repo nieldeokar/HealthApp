@@ -15,8 +15,7 @@ import android.os.AsyncTask
 import android.view.View
 import com.nileshdeokar.healthapp.database.AppDatabase
 import android.arch.persistence.room.Room
-
-
+import android.support.v7.widget.RecyclerView
 
 
 class MainActivity : AppCompatActivity() {
@@ -37,14 +36,29 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.itemAnimator = DefaultItemAnimator()
 
-/*        AsyncTask.execute {
+        /*for (i in 1..10){
+            val patient = Patient()
+            patient.firstName = "FirstName "+ i
+            patient.lastName = "LastName "+ i
+            patient.age = i * 2 + 17
 
-            for (pat in list){
-                Log.d("TAG",pat.firstName)
+            if(i % 2 == 0){
+                patient.sex = "M"
+                patient.anemia = 1
+                patient.asthma = 1
+                patient.chickenPox = 1
+                patient.diabetic = 1
+                patient.thyroid = 1
+            }else{
+                patient.sex = "F"
+                patient.kidneyStone = 1
+                patient.malaria = 1
+                patient.measels = 1
+                patient.heartAttack = 1
+                patient.mumps = 1
             }
-
+            appDatabase?.patientDao()?.insertPatient(patient)
         }*/
-
 
         object : AsyncTask<Void, Void, List<Patient>>() {
             override fun doInBackground(vararg voids: Void): List<Patient>? {
@@ -63,8 +77,6 @@ class MainActivity : AppCompatActivity() {
         recyclerView.addOnItemTouchListener(RecyclerTouchListener(applicationContext, recyclerView, object : RecyclerTouchListener.ClickListener {
             override fun onClick(view: View?, position: Int) {
                 moveToPatientDetails(position+1)
-                /*val movie = list[position]
-                Toast.makeText(applicationContext, movie.firstName + " is selected!", Toast.LENGTH_SHORT).show()*/
             }
 
             override fun onLongClick(view: View?, position: Int) {
