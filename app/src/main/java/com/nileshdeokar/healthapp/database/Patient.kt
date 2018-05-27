@@ -31,6 +31,9 @@ class Patient {
     @ColumnInfo(name = "medical_history",typeAffinity = ColumnInfo.BLOB)
     var medicalHistory : ByteArray? = null
 
+    @ColumnInfo(name = "medical_history_long")
+    var medicalHistory2 = 0L
+
     @ColumnInfo(name = "chicken_pox")
     var  chickenPox : Int = 0
 

@@ -77,7 +77,7 @@ public class BitMaskHandler {
     public BitMaskHandler(byte[] values) {
         if(values.length%8!=0)
         {
-            throw new IllegalArgumentException("Size of byte array should be multiple of 8");
+            throw new IllegalArgumentException("Size of byte array should be multiple of 8 size is "+values.length);
         }
         int longsNeeded = values.length/8;
         this.longs = new long[longsNeeded];

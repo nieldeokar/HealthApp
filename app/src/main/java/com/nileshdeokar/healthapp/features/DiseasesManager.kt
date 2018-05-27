@@ -17,18 +17,18 @@ class DiseasesManager {
          */
         const val CHICKEN_POX           = 1
         const val MEASLES               = 2
-        const val ASTHMA                = 3
-        const val THYROID               = 4
-        const val DIABETES              = 5
-        const val ANEMIA                = 6
-        const val KIDNEY_STONE          = 7
-        const val MALARIA               = 8
-        const val HEART_ATTACK          = 9
-        const val MUMPS                 = 10
+        const val MUMPS                 = 3
+        const val ASTHMA                = 4
+        const val THYROID               = 5
+        const val DIABETES              = 6
+        const val ANEMIA                = 7
+        const val KIDNEY_STONE          = 8
+        const val MALARIA               = 9
+        const val HEART_ATTACK          = 10
 
     }
 
-    init {
+  /*  init {
         val list = ArrayList<Int>()
         list.add(CHICKEN_POX)
         list.add(MEASLES)
@@ -42,7 +42,7 @@ class DiseasesManager {
 
         initialise(list)
     }
-
+*/
 
     private fun initialise(list: ArrayList<Int>) {
         for (feature in list) {
@@ -50,6 +50,17 @@ class DiseasesManager {
         }
     }
 
+    fun setByteArray(diseasesArry : ByteArray) {
+        mBitMaskHandler = BitMaskHandler(diseasesArry)
+    }
+
+    fun getByteArray() : ByteArray {
+        return mBitMaskHandler.toByteArray()
+    }
+
+    fun getLongValue() : LongArray? {
+        return   mBitMaskHandler.toLongs()
+    }
 
     fun getDisease(diseaseToCheck: Int): Boolean {
         return mBitMaskHandler.get(diseaseToCheck)

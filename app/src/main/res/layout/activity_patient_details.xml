@@ -252,4 +252,15 @@
         />
 
 
+    <TextView
+        android:id="@+id/array_values"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/submit"
+        android:layout_margin="2dp"
+        android:padding="2dp"
+        android:textColor="@android:color/holo_red_dark"
+        />
+
+
 </RelativeLayout>

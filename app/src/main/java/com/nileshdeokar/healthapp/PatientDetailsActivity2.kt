@@ -1,20 +1,19 @@
 package com.nileshdeokar.healthapp
 
+import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.*
+import android.util.Log
+import android.widget.CompoundButton
+import android.widget.Toast
+import com.nileshdeokar.healthapp.database.AppDatabase
 import com.nileshdeokar.healthapp.database.Patient
+import com.qtsoftware.qtconnect.features.DiseasesManager
 import kotlinx.android.synthetic.main.activity_patient_details.*
 import kotlinx.android.synthetic.main.row_patient.*
-import com.nileshdeokar.healthapp.database.AppDatabase
-import android.os.AsyncTask
-import android.util.Log
-import com.qtsoftware.qtconnect.features.DiseasesManager
 import java.util.*
-import kotlin.experimental.and
 
-
-class PatientDetailsActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener {
+class PatientDetailsActivity2 : AppCompatActivity(), CompoundButton.OnCheckedChangeListener {
 
     companion object {
         const val BUNDLE_PID = "PID"
@@ -22,9 +21,9 @@ class PatientDetailsActivity : AppCompatActivity(), CompoundButton.OnCheckedChan
 
     private var appDatabase: AppDatabase? = null
 
-    private var patient : Patient? = Patient()
+    private var patient: Patient? = Patient()
 
-    private var diseasesManager = DiseasesManager()
+    private var diseasesManager = SIngleLongHandler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,40 +34,42 @@ class PatientDetailsActivity : AppCompatActivity(), CompoundButton.OnCheckedChan
         if (intent.hasExtra(BUNDLE_PID)) {
             patient = appDatabase?.patientDao()?.findByPid(intent.getIntExtra(BUNDLE_PID, 0))
 
-            if(patient?.medicalHistory != null) diseasesManager.setByteArray(patient?.medicalHistory!!)
+            diseasesManager.setLongvalue(patient?.medicalHistory2!!)
 
-            if (patient != null ) {
+            if (patient != null) {
 
-                    if(patient?.medicalHistory != null) {
+                if (patient?.medicalHistory2 != 0L) {
 
-                        Log.d("TAG2","Setting values through byteArray")
+                    Log.d("TAG2", intToString(diseasesManager.toLongs(), 8)+" VIA ONCREATE")
 
-                        chicken_pox_value.isChecked = diseasesManager.getDisease(DiseasesManager.CHICKEN_POX)
-                        measles_value.isChecked = diseasesManager.getDisease(DiseasesManager.MEASLES)
-                        mumps_value.isChecked = diseasesManager.getDisease(DiseasesManager.MUMPS)
-                        asthma_value.isChecked = diseasesManager.getDisease(DiseasesManager.ASTHMA)
-                        thyroid_value.isChecked = diseasesManager.getDisease(DiseasesManager.THYROID)
-                        diabetic_value.isChecked = diseasesManager.getDisease(DiseasesManager.DIABETES)
-                        anemia_value.isChecked = diseasesManager.getDisease(DiseasesManager.ANEMIA)
-                        kidney_stone_value.isChecked = diseasesManager.getDisease(DiseasesManager.KIDNEY_STONE)
-                        malaria_value.isChecked = diseasesManager.getDisease(DiseasesManager.MALARIA)
-                        heart_attack_value.isChecked = diseasesManager.getDisease(DiseasesManager.HEART_ATTACK)
-                    }else {
+                    Log.d("TAG2", "Setting values through byteArray")
 
-                        Log.d("TAG2","Setting values through variables")
+                    chicken_pox_value.isChecked = diseasesManager.get(DiseasesManager.CHICKEN_POX)
+                    measles_value.isChecked = diseasesManager.get(DiseasesManager.MEASLES)
+                    mumps_value.isChecked = diseasesManager.get(DiseasesManager.MUMPS)
+                    asthma_value.isChecked = diseasesManager.get(DiseasesManager.ASTHMA)
+                    thyroid_value.isChecked = diseasesManager.get(DiseasesManager.THYROID)
+                    diabetic_value.isChecked = diseasesManager.get(DiseasesManager.DIABETES)
+                    anemia_value.isChecked = diseasesManager.get(DiseasesManager.ANEMIA)
+                    kidney_stone_value.isChecked = diseasesManager.get(DiseasesManager.KIDNEY_STONE)
+                    malaria_value.isChecked = diseasesManager.get(DiseasesManager.MALARIA)
+                    heart_attack_value.isChecked = diseasesManager.get(DiseasesManager.HEART_ATTACK)
+                } else {
 
-                        chicken_pox_value.isChecked = patient?.chickenPox == 1
-                        measles_value.isChecked = patient?.measels == 1
-                        mumps_value.isChecked = patient?.mumps == 1
-                        asthma_value.isChecked = patient?.asthma == 1
-                        thyroid_value.isChecked = patient?.thyroid == 1
-                        diabetic_value.isChecked = patient?.diabetic == 1
-                        anemia_value.isChecked = patient?.anemia == 1
-                        kidney_stone_value.isChecked = patient?.kidneyStone == 1
-                        malaria_value.isChecked = patient?.malaria == 1
-                        heart_attack_value.isChecked = patient?.heartAttack == 1
+                    Log.d("TAG2", "Setting values through variables")
 
-                    }
+                      chicken_pox_value.isChecked = patient?.chickenPox == 1
+                      measles_value.isChecked = patient?.measels == 1
+                      mumps_value.isChecked = patient?.mumps == 1
+                      asthma_value.isChecked = patient?.asthma == 1
+                      thyroid_value.isChecked = patient?.thyroid == 1
+                      diabetic_value.isChecked = patient?.diabetic == 1
+                      anemia_value.isChecked = patient?.anemia == 1
+                      kidney_stone_value.isChecked = patient?.kidneyStone == 1
+                      malaria_value.isChecked = patient?.malaria == 1
+                      heart_attack_value.isChecked = patient?.heartAttack == 1
+
+                }
                 name.text = patient?.firstName
                 age.text = "Age : ${patient?.age}"
                 sex.text = "Sex : ${patient?.sex}"
@@ -94,16 +95,16 @@ class PatientDetailsActivity : AppCompatActivity(), CompoundButton.OnCheckedChan
 
     private fun saveData() {
         if (patient != null) {
-            patient?.medicalHistory = diseasesManager.getByteArray()
+            patient?.medicalHistory2 = diseasesManager.toLongs()
             AsyncTask.execute {
                 appDatabase?.patientDao()?.updatePatient(patient)
             }
             Toast.makeText(applicationContext, "Saved successfully !", Toast.LENGTH_SHORT).show()
-            array_values.text = Arrays.toString(patient?.medicalHistory)
+//            array_values.text = Arrays.toString(patient?.medicalHistory)
 
-            for (lonng in diseasesManager.getLongValue()!!){
-                Log.d("TAG2",intToString(lonng,8))
-            }
+            Log.d("TAG2", intToString(diseasesManager.toLongs(), 8)+" VIA SAVE")
+
+
         }
     }
 
@@ -135,45 +136,45 @@ class PatientDetailsActivity : AppCompatActivity(), CompoundButton.OnCheckedChan
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
         if (patient == null) return
         when (buttonView?.id) {
-            R.id.chicken_pox_value ->{
+            R.id.chicken_pox_value -> {
                 if (isChecked) patient?.chickenPox = 1 else patient?.chickenPox = 0
-                diseasesManager.toggleDisease(DiseasesManager.CHICKEN_POX,isChecked)
+                diseasesManager.toggleDisease(DiseasesManager.CHICKEN_POX, isChecked)
             }
             R.id.measles_value -> {
                 if (isChecked) patient?.measels = 1 else patient?.measels = 0
-                diseasesManager.toggleDisease(DiseasesManager.MEASLES,isChecked)
+                diseasesManager.toggleDisease(DiseasesManager.MEASLES, isChecked)
             }
             R.id.mumps_value -> {
                 if (isChecked) patient?.mumps = 1 else patient?.mumps = 0
-                diseasesManager.toggleDisease(DiseasesManager.MUMPS,isChecked)
+                diseasesManager.toggleDisease(DiseasesManager.MUMPS, isChecked)
             }
             R.id.asthma_value -> {
                 if (isChecked) patient?.asthma = 1 else patient?.asthma = 0
-                diseasesManager.toggleDisease(DiseasesManager.ASTHMA,isChecked)
+                diseasesManager.toggleDisease(DiseasesManager.ASTHMA, isChecked)
             }
             R.id.thyroid_value -> {
                 if (isChecked) patient?.thyroid = 1 else patient?.thyroid = 0
-                diseasesManager.toggleDisease(DiseasesManager.THYROID,isChecked)
+                diseasesManager.toggleDisease(DiseasesManager.THYROID, isChecked)
             }
             R.id.diabetic_value -> {
                 if (isChecked) patient?.diabetic = 1 else patient?.diabetic = 0
-                diseasesManager.toggleDisease(DiseasesManager.DIABETES,isChecked)
+                diseasesManager.toggleDisease(DiseasesManager.DIABETES, isChecked)
             }
             R.id.anemia_value -> {
                 if (isChecked) patient?.anemia = 1 else patient?.anemia = 0
-                diseasesManager.toggleDisease(DiseasesManager.ANEMIA,isChecked)
+                diseasesManager.toggleDisease(DiseasesManager.ANEMIA, isChecked)
             }
             R.id.kidney_stone_value -> {
                 if (isChecked) patient?.kidneyStone = 1 else patient?.kidneyStone = 0
-                diseasesManager.toggleDisease(DiseasesManager.KIDNEY_STONE,isChecked)
+                diseasesManager.toggleDisease(DiseasesManager.KIDNEY_STONE, isChecked)
             }
             R.id.malaria_value -> {
                 if (isChecked) patient?.malaria = 1 else patient?.malaria = 0
-                diseasesManager.toggleDisease(DiseasesManager.MALARIA,isChecked)
+                diseasesManager.toggleDisease(DiseasesManager.MALARIA, isChecked)
             }
-            R.id.heart_attack_value ->{
+            R.id.heart_attack_value -> {
                 if (isChecked) patient?.heartAttack = 1 else patient?.heartAttack = 0
-                diseasesManager.toggleDisease(DiseasesManager.HEART_ATTACK,isChecked)
+                diseasesManager.toggleDisease(DiseasesManager.HEART_ATTACK, isChecked)
             }
         }
     }

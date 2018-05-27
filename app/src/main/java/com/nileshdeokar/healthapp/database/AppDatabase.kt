@@ -9,7 +9,7 @@ import android.content.Context
 @Database(entities = arrayOf(Patient::class), version = 1)
 
 
-@TypeConverters(BlobConverter::class)
+//@TypeConverters(BlobConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun patientDao(): PatientDao
