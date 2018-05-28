@@ -1,4 +1,4 @@
-package com.nileshdeokar.healthapp;
+package com.nileshdeokar.healthapp.ui.main;
  
 import android.content.Context;
 import android.content.res.Resources;

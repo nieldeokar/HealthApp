@@ -1,14 +1,14 @@
-package com.nileshdeokar.healthapp.features;
+package com.nileshdeokar.healthapp.utils;
 
 /**
  * Created by niel on 27/05/18.
  */
 
-public class SIngleIntegerHandler {
+public class SingleIntBitMaskHandler {
 
     private int healthValue = 0;
 
-    private static final int sizeOfLongInbits = 64;
+    private static final int sizeOfIntInbits = 32;
 
 
     public boolean set(int position)
@@ -18,7 +18,7 @@ public class SIngleIntegerHandler {
 
     private boolean setValue(int position,boolean value) {
 
-        int offset   = position % sizeOfLongInbits ;
+        int offset   = position % sizeOfIntInbits;
         if(!value) {
             healthValue &= ~ (1 << offset);
         }
@@ -33,7 +33,7 @@ public class SIngleIntegerHandler {
 
     public boolean get(int position) {
 
-        int offset   = position % sizeOfLongInbits;
+        int offset   = position % sizeOfIntInbits;
         long bit = (healthValue >> offset) & 1;
         System.out.println("get : "+position + " " + (bit!=0));
         return bit!=0;
@@ -44,13 +44,13 @@ public class SIngleIntegerHandler {
         setValue(position,false);
     }
 
-    public long toLongs()
+    public int toInts()
     {
         return this.healthValue;
     }
 
-    public void setLongvalue(int longvalue){
-        healthValue = longvalue;
+    public void setIntvalue(int intvalue){
+        healthValue = intvalue;
     }
 
     public void toggleDisease(int diseaseToSet, boolean value) {

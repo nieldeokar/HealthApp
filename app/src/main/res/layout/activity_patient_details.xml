@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="16dp"
-    tools:context="com.nileshdeokar.healthapp.PatientDetailsActivity">
+    tools:context="com.nileshdeokar.healthapp.ui.details.PatientDetailsActivity">
 
     <RelativeLayout
         android:id="@+id/basicInfo"

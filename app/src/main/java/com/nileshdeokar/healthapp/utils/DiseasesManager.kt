@@ -1,10 +1,10 @@
 package com.qtsoftware.qtconnect.features
 
-import com.nileshdeokar.healthapp.features.BitMaskHandler
+import com.nileshdeokar.healthapp.utils.MultipleLongArrayBitMaskHandler
 
 class DiseasesManager {
 
-    private var mBitMaskHandler = BitMaskHandler()
+    private var mBitMaskHandler = MultipleLongArrayBitMaskHandler()
 
     companion object {
 
@@ -28,30 +28,9 @@ class DiseasesManager {
 
     }
 
-  /*  init {
-        val list = ArrayList<Int>()
-        list.add(CHICKEN_POX)
-        list.add(MEASLES)
-        list.add(ASTHMA)
-        list.add(THYROID)
-        list.add(DIABETES)
-        list.add(ANEMIA)
-        list.add(KIDNEY_STONE)
-        list.add(MALARIA)
-        list.add(HEART_ATTACK)
-
-        initialise(list)
-    }
-*/
-
-    private fun initialise(list: ArrayList<Int>) {
-        for (feature in list) {
-            mBitMaskHandler.set(feature)
-        }
-    }
 
     fun setByteArray(diseasesArry : ByteArray) {
-        mBitMaskHandler = BitMaskHandler(diseasesArry)
+        mBitMaskHandler = MultipleLongArrayBitMaskHandler(diseasesArry)
     }
 
     fun getByteArray() : ByteArray {

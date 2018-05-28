@@ -23,6 +23,8 @@ allprojects {
 }
 ext {
 
+
+
     roomVersion = '1.1.1-rc1'
 }
 
@@ -30,3 +32,6 @@ ext {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+
+

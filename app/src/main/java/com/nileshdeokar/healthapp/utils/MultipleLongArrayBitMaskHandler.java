@@ -1,16 +1,16 @@
-package com.nileshdeokar.healthapp.features;
+package com.nileshdeokar.healthapp.utils;
 
 import com.qtsoftware.qtconnect.features.DiseasesManager;
 
 import java.nio.ByteBuffer;
 
-public class BitMaskHandler {
+public class MultipleLongArrayBitMaskHandler {
 
     private long longs[] = new long[DiseasesManager.TOTAL_SIZE_OF_DISEASE_ARRAY]; // We are initialising it with 24 bytes
 
     private static final int sizeOfLongInbits = 64;
 
-    public BitMaskHandler(){}
+    public MultipleLongArrayBitMaskHandler(){}
 
     public boolean set(int position)
     {
@@ -52,7 +52,7 @@ public class BitMaskHandler {
      * @param size size of long[] in bits
      *
      */
-    private BitMaskHandler(int size) {
+    private MultipleLongArrayBitMaskHandler(int size) {
         if(size % sizeOfLongInbits !=0)
         {
             throw new IllegalArgumentException("Size should be a multiple of 64");
@@ -64,17 +64,17 @@ public class BitMaskHandler {
     }
 
 
-    private BitMaskHandler(long[] value)
+    private MultipleLongArrayBitMaskHandler(long[] value)
     {
         this.longs = value;
     }
 
-    /*public BitMaskHandler(long value)
+    /*public MultipleLongArrayBitMaskHandler(long value)
     {
         this.longs = new long[]{value};
     }
 */
-    public BitMaskHandler(byte[] values) {
+    public MultipleLongArrayBitMaskHandler(byte[] values) {
         if(values.length%8!=0)
         {
             throw new IllegalArgumentException("Size of byte array should be multiple of 8 size is "+values.length);

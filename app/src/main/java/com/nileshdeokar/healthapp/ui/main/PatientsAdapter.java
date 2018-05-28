@@ -1,4 +1,4 @@
-package com.nileshdeokar.healthapp;
+package com.nileshdeokar.healthapp.ui.main;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,13 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.nileshdeokar.healthapp.database.Patient;
+import com.nileshdeokar.healthapp.R;
+import com.nileshdeokar.healthapp.database.entity.PatientEntity;
 
 import java.util.List;
 
 public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.MyViewHolder> {
 
-    private List<Patient> patientList;
+    private List<PatientEntity> patientEntityList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, age, sex;
@@ -26,8 +27,8 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.MyView
     }
 
 
-    public PatientsAdapter(List<Patient> moviesList) {
-        this.patientList = moviesList;
+    public PatientsAdapter(List<PatientEntity> moviesList) {
+        this.patientEntityList = moviesList;
     }
 
     @Override
@@ -40,16 +41,16 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.MyView
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Patient patient = patientList.get(position);
+        PatientEntity patientEntity = patientEntityList.get(position);
 
-        holder.name.setText(patient.getFirstName());
-        holder.age.setText("Age : "+patient.getAge());
-        holder.sex.setText("Sex : "+patient.getSex());
+        holder.name.setText(patientEntity.getName());
+        holder.age.setText("Age : "+ patientEntity.getAge());
+        holder.sex.setText("Sex : "+ patientEntity.getSex());
 
     }
 
     @Override
     public int getItemCount() {
-        return patientList.size();
+        return patientEntityList.size();
     }
 }
