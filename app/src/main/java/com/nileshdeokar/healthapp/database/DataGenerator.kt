@@ -1,8 +1,11 @@
 package com.nileshdeokar.healthapp.database
 
 import com.nileshdeokar.healthapp.database.entity.PatientEntity
+import com.nileshdeokar.healthapp.utils.Constants
 import com.nileshdeokar.healthapp.utils.SingleIntBitMaskHandler
-import com.qtsoftware.qtconnect.features.DiseasesManager
+/**
+ * Created by @nieldeokar on 27/05/18.
+ */
 
 class DataGenerator {
 
@@ -14,6 +17,7 @@ class DataGenerator {
             val patient = PatientEntity()
             val diseasesManager = SingleIntBitMaskHandler()
 
+            patient.pid = i
             patient.name = "PatientEntity " + i
             patient.age = i * 2 + 17
 
@@ -21,25 +25,26 @@ class DataGenerator {
                 patient.sex = "M"
 
 
-                diseasesManager.set(DiseasesManager.MEASLES)
-                diseasesManager.set(DiseasesManager.ASTHMA)
-                diseasesManager.set(DiseasesManager.DIABETES)
-                diseasesManager.set(DiseasesManager.KIDNEY_STONE)
-                diseasesManager.set(DiseasesManager.HEART_ATTACK)
+                diseasesManager.set(Constants.MEASLES)
+                diseasesManager.set(Constants.ASTHMA)
+                diseasesManager.set(Constants.DIABETES)
+                diseasesManager.set(Constants.KIDNEY_STONE)
+                diseasesManager.set(Constants.HEART_ATTACK)
 
             } else {
                 patient.sex = "F"
 
 
-                diseasesManager.set(DiseasesManager.CHICKEN_POX)
-                diseasesManager.set(DiseasesManager.MUMPS)
-                diseasesManager.set(DiseasesManager.THYROID)
-                diseasesManager.set(DiseasesManager.ANEMIA)
-                diseasesManager.set(DiseasesManager.MALARIA)
+                diseasesManager.set(Constants.CHICKEN_POX)
+                diseasesManager.set(Constants.MUMPS)
+                diseasesManager.set(Constants.THYROID)
+                diseasesManager.set(Constants.ANEMIA)
+                diseasesManager.set(Constants.MALARIA)
             }
 
-            patient.medicalHistory = diseasesManager.toInts()
+            patient.medicalHistory = diseasesManager.intValue
 
+            System.out.println("MedicalHistory : "+patient.medicalHistory)
             patients.add(patient)
         }
         return patients

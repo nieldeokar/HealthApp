@@ -6,16 +6,16 @@ import android.widget.*
 import com.nileshdeokar.healthapp.database.entity.PatientEntity
 import kotlinx.android.synthetic.main.activity_patient_details.*
 import kotlinx.android.synthetic.main.row_patient.*
-import com.nileshdeokar.healthapp.database.AppDatabase
-import android.os.AsyncTask
+import android.util.Log
 import com.nileshdeokar.healthapp.HealthApp
 import com.nileshdeokar.healthapp.R
-import com.nileshdeokar.healthapp.ui.main.PatientsAdapter
+import com.nileshdeokar.healthapp.utils.Constants
 import com.nileshdeokar.healthapp.utils.SingleIntBitMaskHandler
-import com.qtsoftware.qtconnect.features.DiseasesManager
-import kotlinx.android.synthetic.main.activity_main.*
 import java.util.concurrent.Executors
 
+/**
+ * Created by @nieldeokar on 27/05/18.
+ */
 
 class PatientDetailsActivity  : AppCompatActivity(), CompoundButton.OnCheckedChangeListener {
 
@@ -34,39 +34,20 @@ class PatientDetailsActivity  : AppCompatActivity(), CompoundButton.OnCheckedCha
 
         if (intent.hasExtra(BUNDLE_PID)) {
 
-
             val executor = Executors.newSingleThreadExecutor()
 
+            val pid = intent.getIntExtra(BUNDLE_PID,0)
+
             executor.execute({
-                patientEntity = (application as HealthApp).getDatabase()?.patientDao()?.findByPid(intent.getIntExtra(BUNDLE_PID,0))
+                Log.d("TAG2","PID RECEIVED $pid")
+                patientEntity = (application as HealthApp).getDatabase()?.patientDao()?.findByPid(pid)
+
+                runOnUiThread({setValues()})
             })
-
-            diseasesManager.setIntvalue(patientEntity?.medicalHistory!!)
-
-
-            if (patientEntity != null) {
-
-                chicken_pox_value.isChecked = diseasesManager.get(DiseasesManager.CHICKEN_POX)
-                measles_value.isChecked = diseasesManager.get(DiseasesManager.MEASLES)
-                mumps_value.isChecked = diseasesManager.get(DiseasesManager.MUMPS)
-                asthma_value.isChecked = diseasesManager.get(DiseasesManager.ASTHMA)
-                thyroid_value.isChecked = diseasesManager.get(DiseasesManager.THYROID)
-                diabetic_value.isChecked = diseasesManager.get(DiseasesManager.DIABETES)
-                anemia_value.isChecked = diseasesManager.get(DiseasesManager.ANEMIA)
-                kidney_stone_value.isChecked = diseasesManager.get(DiseasesManager.KIDNEY_STONE)
-                malaria_value.isChecked = diseasesManager.get(DiseasesManager.MALARIA)
-                heart_attack_value.isChecked = diseasesManager.get(DiseasesManager.HEART_ATTACK)
-
-                name.text = patientEntity?.name
-                age.text = "Age : ${patientEntity?.age}"
-                sex.text = "Sex : ${patientEntity?.sex}"
-
-                updateBinaryText()
-
-            } else {
-                Toast.makeText(this, "PatientEntity not found", Toast.LENGTH_LONG).show()
-            }
+        }else {
+            return
         }
+
 
         chicken_pox_value.setOnCheckedChangeListener(this)
         measles_value.setOnCheckedChangeListener(this)
@@ -80,17 +61,46 @@ class PatientDetailsActivity  : AppCompatActivity(), CompoundButton.OnCheckedCha
         heart_attack_value.setOnCheckedChangeListener(this)
 
         submit.setOnClickListener { saveData() }
+
+
+
+    }
+
+    private fun setValues() {
+
+        if (patientEntity != null) {
+            diseasesManager.intValue = patientEntity?.medicalHistory!!
+
+            chicken_pox_value.isChecked = diseasesManager.get(Constants.CHICKEN_POX)
+            measles_value.isChecked = diseasesManager.get(Constants.MEASLES)
+            mumps_value.isChecked = diseasesManager.get(Constants.MUMPS)
+            asthma_value.isChecked = diseasesManager.get(Constants.ASTHMA)
+            thyroid_value.isChecked = diseasesManager.get(Constants.THYROID)
+            diabetic_value.isChecked = diseasesManager.get(Constants.DIABETES)
+            anemia_value.isChecked = diseasesManager.get(Constants.ANEMIA)
+            kidney_stone_value.isChecked = diseasesManager.get(Constants.KIDNEY_STONE)
+            malaria_value.isChecked = diseasesManager.get(Constants.MALARIA)
+            heart_attack_value.isChecked = diseasesManager.get(Constants.HEART_ATTACK)
+
+            name.text = patientEntity?.name
+            age.text = getString(R.string.age,patientEntity?.age)
+            sex.text = getString(R.string.sex,patientEntity?.sex)
+
+            updateBinaryText()
+
+        } else {
+            Toast.makeText(this, getString(R.string.not_found), Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun saveData() {
         if (patientEntity != null) {
-            patientEntity?.medicalHistory = diseasesManager.toInts()
+            patientEntity?.medicalHistory = diseasesManager.intValue
 
             val executor = Executors.newSingleThreadExecutor()
 
             executor.execute({
                 (application as HealthApp).getDatabase()?.patientDao()?.updatePatient(patientEntity)
-
             })
 
             Toast.makeText(applicationContext, getString(R.string.save_success), Toast.LENGTH_SHORT).show()
@@ -99,7 +109,8 @@ class PatientDetailsActivity  : AppCompatActivity(), CompoundButton.OnCheckedCha
     }
 
     private fun updateBinaryText(){
-        val strBinary = getString(R.string.binary_representation,intToString(diseasesManager.toInts()))
+        val strBinary = getString(R.string.binary_representation,intToString(diseasesManager.intValue)) +
+                "\n\n" + getString(R.string.integer_representation,patientEntity?.medicalHistory)
         array_values.text = strBinary
     }
 
@@ -124,37 +135,37 @@ class PatientDetailsActivity  : AppCompatActivity(), CompoundButton.OnCheckedCha
         if (patientEntity == null) return
         when (buttonView?.id) {
             R.id.chicken_pox_value -> {
-                diseasesManager.toggleDisease(DiseasesManager.CHICKEN_POX, isChecked)
+                diseasesManager.toggleDisease(Constants.CHICKEN_POX, isChecked)
             }
             R.id.measles_value -> {
-                diseasesManager.toggleDisease(DiseasesManager.MEASLES, isChecked)
+                diseasesManager.toggleDisease(Constants.MEASLES, isChecked)
             }
             R.id.mumps_value -> {
-                diseasesManager.toggleDisease(DiseasesManager.MUMPS, isChecked)
+                diseasesManager.toggleDisease(Constants.MUMPS, isChecked)
             }
             R.id.asthma_value -> {
-                diseasesManager.toggleDisease(DiseasesManager.ASTHMA, isChecked)
+                diseasesManager.toggleDisease(Constants.ASTHMA, isChecked)
             }
             R.id.thyroid_value -> {
-                diseasesManager.toggleDisease(DiseasesManager.THYROID, isChecked)
+                diseasesManager.toggleDisease(Constants.THYROID, isChecked)
             }
             R.id.diabetic_value -> {
-                diseasesManager.toggleDisease(DiseasesManager.DIABETES, isChecked)
+                diseasesManager.toggleDisease(Constants.DIABETES, isChecked)
             }
             R.id.anemia_value -> {
-                diseasesManager.toggleDisease(DiseasesManager.ANEMIA, isChecked)
+                diseasesManager.toggleDisease(Constants.ANEMIA, isChecked)
             }
             R.id.kidney_stone_value -> {
-                diseasesManager.toggleDisease(DiseasesManager.KIDNEY_STONE, isChecked)
+                diseasesManager.toggleDisease(Constants.KIDNEY_STONE, isChecked)
             }
             R.id.malaria_value -> {
-                diseasesManager.toggleDisease(DiseasesManager.MALARIA, isChecked)
+                diseasesManager.toggleDisease(Constants.MALARIA, isChecked)
             }
             R.id.heart_attack_value -> {
-                diseasesManager.toggleDisease(DiseasesManager.HEART_ATTACK, isChecked)
+                diseasesManager.toggleDisease(Constants.HEART_ATTACK, isChecked)
             }
         }
-
+        patientEntity?.medicalHistory = diseasesManager.intValue
         updateBinaryText()
     }
 

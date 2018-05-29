@@ -10,10 +10,13 @@ import com.nileshdeokar.healthapp.R;
 import com.nileshdeokar.healthapp.database.entity.PatientEntity;
 
 import java.util.List;
+/**
+ * Created by @nieldeokar on 27/05/18.
+ */
 
 public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.MyViewHolder> {
 
-    private List<PatientEntity> patientEntityList;
+    public List<PatientEntity> patientEntityList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, age, sex;
@@ -53,4 +56,5 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.MyView
     public int getItemCount() {
         return patientEntityList.size();
     }
+
 }

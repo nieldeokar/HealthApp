@@ -16,6 +16,9 @@ import android.view.View
 import com.nileshdeokar.healthapp.database.DataGenerator
 import java.util.concurrent.Executors
 
+/**
+ * Created by @nieldeokar on 27/05/18.
+ */
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,14 +40,21 @@ class MainActivity : AppCompatActivity() {
 
 
         executor.execute({
-            val patients = (application as HealthApp).getDatabase()?.patientDao()?.all
+            var patients = (application as HealthApp).getDatabase()?.patientDao()?.all
 
             if(patients?.size == 0){
-                (application as HealthApp).getDatabase()?.patientDao()?.insertAll(DataGenerator.generatePatients())
+                patients =  DataGenerator.generatePatients()
+                (application as HealthApp).getDatabase()?.patientDao()?.insertAll(patients)
+
+                Log.d("TAG","List was empty inserted items")
+
+
+                val patient23 = (application as HealthApp).getDatabase()?.patientDao()?.all
+
+                Log.d("TAG","Fetched items size ${patient23?.size}")
             }
             runOnUiThread({
                 recyclerView.adapter =  PatientsAdapter(patients)
-                Log.d("TAG2","${patients?.size} Size of list")
             })
         })
 
@@ -52,7 +62,8 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.addOnItemTouchListener(RecyclerTouchListener(applicationContext, recyclerView, object : RecyclerTouchListener.ClickListener {
             override fun onClick(view: View?, position: Int) {
-                moveToPatientDetails(position + 1)
+                val pid = (recyclerView.adapter as PatientsAdapter).patientEntityList[position].pid
+                moveToPatientDetails(pid)
             }
 
             override fun onLongClick(view: View?, position: Int) {
@@ -62,19 +73,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun moveToPatientDetails(position: Int) {
+    private fun moveToPatientDetails(pid: Int) {
         val intent = Intent(this, PatientDetailsActivity::class.java)
-        intent.putExtra(PatientDetailsActivity.BUNDLE_PID,position)
+        intent.putExtra(PatientDetailsActivity.BUNDLE_PID,pid)
         startActivity(intent)
     }
 
-/*
-    private fun moveToPatientDetails(patientEntity: PatientEntity) {
-        val intent = Intent(this, PatientDetailsActivity::class.java)
-        intent.putExtra(PatientDetailsActivity.BUNDLE_PID,patientEntity)
-        startActivity(intent)
-    }
-
-
-    */
 }

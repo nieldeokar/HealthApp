@@ -12,11 +12,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
- 
+
 /**
- * Created by Ravi on 30/10/15.
- * updated by Ravi on 14/11/17
+ * Created by @nieldeokar on 27/05/18.
  */
+
 public class MyDividerItemDecoration extends RecyclerView.ItemDecoration {
  
     private static final int[] ATTRS = new int[]{

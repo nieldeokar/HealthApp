@@ -6,8 +6,9 @@ import android.arch.persistence.room.PrimaryKey
 
 
 /**
- * Created by niel on 23/05/18.
+ * Created by @nieldeokar on 27/05/18.
  */
+
 
 @Entity(tableName = "patients")
 class PatientEntity {

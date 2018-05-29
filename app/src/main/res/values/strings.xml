@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Healthapp</string>
 
-    <string name="binary_representation">Binary Representation : %s </string>
+    <string name="binary_representation">Binary Representation :\n%s </string>
+    <string name="integer_representation">Integer Representation : %d </string>
+    <string name="sex">Age : %s</string>
+    <string name="age">Sex : %d</string>
     <string name="save_success">Saved successfully !</string>
+    <string name="not_found">Patient id not found</string>
 </resources>
