@@ -17,4 +17,5 @@ class HealthApp  : Application() {
     fun getDatabase(): AppDatabase? {
         return AppDatabase.getInstance(this)
     }
+
 }
