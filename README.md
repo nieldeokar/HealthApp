@@ -39,12 +39,12 @@ public class GetAppUpdateAvailable {
 This way we can store upto 32 boolean values into 1 integer. 
 
 ### Want to store more than 32 boolean values ?
-In this case you can change variable type to ```Long``` which will give you 64 bits. You need more than that ? Then consider using ``` long[] ``` of size ```n``` It shall work for you. 
+In this case you can change variable type to ```Long``` which will give you 64 bits. You need more than that ? Then consider using ``` long[] ``` of size ```n``` It should work for you. 
 
-[1. SingleIntBitmaskHandler][2]
-[2. SingleLongBitmaskHandler][3]
-[3. MutlipleLongBitmaskHandler][4]
 
+1. [SingleIntBitmaskHandler][2]
+2. [SingleLongBitmaskHandler][3]
+3. [MutlipleLongBitmaskHandler][4]
 
 
 
