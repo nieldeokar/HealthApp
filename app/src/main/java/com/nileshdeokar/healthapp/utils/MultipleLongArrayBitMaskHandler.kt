@@ -11,7 +11,6 @@ class MultipleLongArrayBitMaskHandler {
 
     private var longs = LongArray(2)
 
-    constructor() {}
 
     fun set(position: Int): Boolean {
         return setValue(position, true)

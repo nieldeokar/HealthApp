@@ -1,4 +1,4 @@
-package com.nileshdeokar.healthapp;
+package com.nileshdeokar.healthapp.utils;
 
 /**
  * Created by niel on 27/05/18.
