@@ -30,8 +30,8 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.MyView
     }
 
 
-    public PatientsAdapter(List<PatientEntity> moviesList) {
-        this.patientEntityList = moviesList;
+    public PatientsAdapter(List<PatientEntity> patientsList) {
+        this.patientEntityList = patientsList;
     }
 
     @Override
