@@ -1,5 +1,17 @@
+
+<p align="center">
+    <img src="https://img.shields.io/badge/32%20booleans-1%20int-ff69b4.svg"
+        height="100"/></br>
+
+<a href="https://mindorks.com/newsletter/edition/4">
+      <img src="https://img.shields.io/badge/Mindorks%20Newsletter%20-%234-68efad.svg"/>
+</a>
+</p>
+
 # HealthApp using BitwiseShifting
-This demo app shows how to use 1 Integer value to store upto 32 booleans. Find the reference [article here][1]
+This demo app shows how to use 1 Integer value to store upto 32 booleans. Find the reference [article here][1].
+
+
 
 
 ### Using Bit values 
