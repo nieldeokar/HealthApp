@@ -10,6 +10,8 @@ import com.nileshdeokar.healthapp.R;
 import com.nileshdeokar.healthapp.database.entity.PatientEntity;
 
 import java.util.List;
+import java.util.Locale;
+
 /**
  * Created by @nieldeokar on 27/05/18.
  */
@@ -23,15 +25,15 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.MyView
 
         public MyViewHolder(View view) {
             super(view);
-            name = (TextView) view.findViewById(R.id.name);
-            age = (TextView) view.findViewById(R.id.age);
-            sex = (TextView) view.findViewById(R.id.sex);
+            name = view.findViewById(R.id.name);
+            age = view.findViewById(R.id.age);
+            sex = view.findViewById(R.id.sex);
         }
     }
 
 
-    public PatientsAdapter(List<PatientEntity> moviesList) {
-        this.patientEntityList = moviesList;
+    public PatientsAdapter(List<PatientEntity> patientEntities) {
+        this.patientEntityList = patientEntities;
     }
 
     @Override
@@ -47,8 +49,8 @@ public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.MyView
         PatientEntity patientEntity = patientEntityList.get(position);
 
         holder.name.setText(patientEntity.getName());
-        holder.age.setText("Age : "+ patientEntity.getAge());
-        holder.sex.setText("Sex : "+ patientEntity.getSex());
+        holder.age.setText(String.format(Locale.US,"Age : %d ", patientEntity.getAge()));
+        holder.sex.setText(String.format(Locale.US,"Sex : %s ", patientEntity.getSex()));
 
     }
 
