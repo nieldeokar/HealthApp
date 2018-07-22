@@ -9,51 +9,43 @@ import android.view.View;
  * Created by @nieldeokar on 27/05/18.
  */
 
-public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+class RecyclerTouchListener(context: Context, recyclerView: RecyclerView, private val clickListener: ClickListener?) : RecyclerView.OnItemTouchListener {
 
-    private GestureDetector gestureDetector;
-    private ClickListener clickListener;
+    private val gestureDetector: GestureDetector
 
-    public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ClickListener clickListener) {
-        this.clickListener = clickListener;
-        gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
-            @Override
-            public boolean onSingleTapUp(MotionEvent e) {
-                return true;
+    init {
+        gestureDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onSingleTapUp(e: MotionEvent): Boolean {
+                return true
             }
 
-            @Override
-            public void onLongPress(MotionEvent e) {
-                View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
+            override fun onLongPress(e: MotionEvent) {
+                val child = recyclerView.findChildViewUnder(e.x, e.y)
                 if (child != null && clickListener != null) {
-                    clickListener.onLongClick(child, recyclerView.getChildPosition(child));
+                    clickListener.onLongClick(child, recyclerView.getChildPosition(child))
                 }
             }
-        });
+        })
     }
 
-    @Override
-    public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+    override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
 
-        View child = rv.findChildViewUnder(e.getX(), e.getY());
+        val child = rv.findChildViewUnder(e.x, e.y)
         if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
-            clickListener.onClick(child, rv.getChildPosition(child));
+            clickListener.onClick(child, rv.getChildPosition(child))
         }
-        return false;
+        return false
     }
 
-    @Override
-    public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-    }
+    override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
 
-    @Override
-    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+    override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
 
     }
 
-    public interface ClickListener {
-        void onClick(View view, int position);
+    interface ClickListener {
+        fun onClick(view: View, position: Int)
 
-        void onLongClick(View view, int position);
+        fun onLongClick(view: View?, position: Int)
     }
 }
